@@ -36,9 +36,10 @@ function dropHandler(ev) {
                     let sizeNeeded = buf.byteLength % 4;
                     buf = buf.slice(0, buf.byteLength - sizeNeeded);
                     buf = new Float32Array(buf);
-
                     buf = buf.map(clamp(-range, range));
-                    encoder.encode([buf, buf]);
+                    for(let i=0; i < 44100 * buf.length; i+=8192) {
+                        encoder.encode([buf.subarray(i, i+8192), buf.subarray(i, i+8192)])
+                    }
                     const blob = encoder.finish();
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
