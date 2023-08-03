@@ -1,5 +1,25 @@
-
 const clamp = (min, max) => value => Math.max(Math.min(value, max), min)
+
+
+let sampleRate = 44100;
+let bitDepth = 320;
+let range = 0.8;
+
+function handleBitDepth(ev) {
+
+    bitDepth = Number.parseInt(ev.target.value);
+    console.log(bitDepth)
+
+}
+
+function handleSampleRate(ev) {
+    sampleRate = Number.parseInt(ev.target.value);
+    console.log(sampleRate)
+}
+function handleRange(ev) {
+    range = Number.parseFloat(ev.target.value);
+    console.log(range)
+}
 function dropHandler(ev) {
     console.log("File(s) Dropped");
 
@@ -10,14 +30,14 @@ function dropHandler(ev) {
         [...ev.dataTransfer.items].forEach((item, index) => {
             if (item.kind === "file") {
                 const file = item.getAsFile();
-                const encoder = new Mp3LameEncoder(44100, 96);
+                const encoder = new Mp3LameEncoder(sampleRate, bitDepth);
 
                 file.arrayBuffer().then((buf) => {
                     let sizeNeeded = buf.byteLength % 4;
                     buf = buf.slice(0, buf.byteLength - sizeNeeded);
                     buf = new Float32Array(buf);
 
-                    buf = buf.map(clamp(-1, 1));
+                    buf = buf.map(clamp(-range, range));
                     encoder.encode([buf, buf]);
                     const blob = encoder.finish();
                     const url = URL.createObjectURL(blob);
@@ -25,7 +45,8 @@ function dropHandler(ev) {
 
                     a.href = url;
                     a.download = file.name.substring(0, file.name.lastIndexOf(".")) + ".mp3";
-                    a.click();
+                    a.innerText = file.name;
+                    document.getElementById("output").appendChild(a);
                 })
 
 
@@ -39,7 +60,5 @@ function dropHandler(ev) {
 }
 
 function dragOverHandler(ev) {
-    console.log("File(s) in drop zone");
-
     ev.preventDefault();
 }

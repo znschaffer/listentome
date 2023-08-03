@@ -8,10 +8,24 @@
     <script src="js.js"></script>
 </head>
 <body>
-<div id="drop_zone"
-     ondrop="dropHandler(event);"
-     ondragover="dragOverHandler(event);">
-    <p>Drop file here!</p>
+<div class="container">
+    <h1>Drag In Any File And I'll Turn It In Audio!</h1>
+    <div id="drop_zone"
+         ondrop="dropHandler(event);"
+         ondragover="dragOverHandler(event);">
+        <p>Drop file here!</p>
+    </div>
+    <div id="settings">
+        <div><label for="sampleRate">Sample Rate</label>
+            <input onchange="handleSampleRate(event)" value="44100" type="number" name="sampleRate" id="sampleRate"></div>
+        <div><label for="bitRate">Bit Rate</label>
+            <input onchange="handleBitDepth(event)" value="320" type="number" name="bitRate" id="bitRate"></div>
+        <div><label for="range">Range</label>
+            <input onchange="handleRange(event)" value="0.8" type="number" name="range" id="range"></div>
+    </div>
+    <div id="output">
+        <h3>Downloads</h3>
+    </div>
 </div>
 </body>
 </html>

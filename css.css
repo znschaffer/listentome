@@ -1,5 +1,48 @@
 #drop_zone {
-    border: 5px solid blue;
+    border: 1px solid blue;
     width: 200px;
     height: 100px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+
+}
+
+#drop_zone:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+#output {
+    border: 1px solid red;
+    height: 300px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+}
+#settings {
+    border: 1px solid green;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    padding: 20px;
+
+}
+
+#settings div {
+    margin: 10px;
+}
+.container {
+    margin: 40px auto auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 500px;
+    background-color: aliceblue;
+    padding: 20px;
+    grid-gap: 20px;
 }
